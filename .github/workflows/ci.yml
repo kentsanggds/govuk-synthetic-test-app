@@ -13,7 +13,7 @@ concurrency:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: codebuild-KenFirebreakCodeBuildRunner-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Always true
         run: echo "runs"

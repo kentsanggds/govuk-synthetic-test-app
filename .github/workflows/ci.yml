@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test-codebuild
   pull_request:
 
 concurrency:

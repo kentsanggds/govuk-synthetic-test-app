@@ -28,9 +28,11 @@ jobs:
   build-and-publish-image:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v')
     name: Build and publish image
-    uses: ./.github/workflows/build-and-push-image-codebuild.yml
+    uses: ./.github/workflows/build-and-push-image-ecr.yml
     with:
       gitRef: ${{ inputs.gitRef || github.event.release.tag_name }}
+      aws_account_id: "210287912431"
+      ecr_repo_name: "kentsanggds-govuk-synthetic-test-app"
     permissions:
       id-token: write
       contents: read

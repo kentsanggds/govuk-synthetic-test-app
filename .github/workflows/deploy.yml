@@ -30,7 +30,7 @@ jobs:
     name: Build and publish image
     uses: ./.github/workflows/build-and-push-image-ecr.yml
     with:
-      image_tag: ${{ inputs.gitRef || github.event.release.tag_name }}
+      image_tag: ${{ inputs.gitRef || github.sha }}
       aws_account_id: "210287912431"
       ecr_repo_name: "kentsanggds-govuk-synthetic-test-app"
     permissions:

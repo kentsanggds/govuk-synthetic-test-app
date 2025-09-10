@@ -129,7 +129,7 @@ jobs:
         env:
           ECR_REGION: ${{ inputs.aws_region }}
           ECR_REGISTRY: ${{ inputs.aws_account_id }}
-          ECR_REPOSITORY: "Amazon-ECR-${{ inputs.ecr_repo_name || github.event.repository.name }}"
+          ECR_REPOSITORY: "${{ inputs.ecr_repo_name || github.event.repository.name }}"
           IMAGE_TAG: ${{ inputs.image_tag }}
         run: |
           aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com

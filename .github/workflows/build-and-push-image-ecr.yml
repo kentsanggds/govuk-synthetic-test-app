@@ -25,7 +25,9 @@ on:
 
 jobs:
   docker:
-    runs-on: codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on:
+      - codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
+        image:arm-3.0
 
     permissions:
       id-token: write
@@ -54,8 +56,8 @@ jobs:
           ECR_REPOSITORY: "${{ inputs.ecr_repo_name || github.event.repository.name }}"
           IMAGE_TAG: ${{ inputs.image_tag }}
         run: |
-          docker build "${{ inputs.docker_build_dir }}" -f "${{ inputs.path_to_dockerfile }}" -t "$AWS_ACCOUNT_ID/$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"
-          docker push "$AWS_ACCOUNT_ID/$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"
-          echo "IMAGE $IMAGE_TAG is pushed to $AWS_ACCOUNT_ID/$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY"
+          docker build "${{ inputs.docker_build_dir }}" -f "${{ inputs.path_to_dockerfile }}" -t "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "IMAGE $IMAGE_TAG is pushed to $IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY"
           echo "image_tag=$IMAGE_TAG" 
-          echo "full_image=$AWS_ACCOUNT_ID/$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "full_image=$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"

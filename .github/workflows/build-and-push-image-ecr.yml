@@ -25,9 +25,9 @@ on:
 
 jobs:
   docker:
-    runs-on:
-      - codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
-        image:arm-3.0
+    runs-on: codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
+      # - codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
+      #   image:arm-3.0
 
     permissions:
       id-token: write

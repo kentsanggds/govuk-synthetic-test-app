@@ -14,7 +14,7 @@ concurrency:
 jobs:
   test:
     name: Test
-    runs-on: codebuild-KenFirebreakCodeBuildRunner-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Always true
         run: echo "runs"

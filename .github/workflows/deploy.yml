@@ -31,8 +31,7 @@ jobs:
     uses: ./.github/workflows/build-and-push-image-ecr.yml
     with:
       image_tag: ${{ inputs.gitRef || github.sha }}
-      aws_account_id: "210287912431"
-      ecr_repo_name: "kentsanggds-govuk-synthetic-test-app"
+      ecr_repo_name: "govuk-synthetic-test-app"
     permissions:
       id-token: write
       contents: read

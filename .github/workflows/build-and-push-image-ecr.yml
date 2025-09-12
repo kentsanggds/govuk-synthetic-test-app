@@ -27,7 +27,7 @@ concurrency: ci-${{ github.repository }}-docker-pipeline
         
 jobs:
   docker:
-    runs-on: codebuild-KenFirebreakCodeBuild2-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-KenFirebreakCodebuild3-${{ github.run_id }}-${{ github.run_attempt }}
       # - codebuild-KenFirebreakCodeBuild-${{ github.run_id }}-${{ github.run_attempt }}
       #   image:arm-3.0
 
@@ -49,7 +49,6 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         shell: bash
-        # run: docker login -u AWS --password-stdin $(aws ecr-public get-login-password --region us-east-1) public.ecr.aws/f7k1s1e5
         run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/f7k1s1e5
 
       - name: Build, tag, and push image to Amazon ECR

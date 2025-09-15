@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test-arc
   pull_request:
 
 concurrency:
@@ -13,7 +14,7 @@ concurrency:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: arc-runner-set
     steps:
       - name: Always true
         run: echo "runs"

@@ -17,6 +17,7 @@ on:
         default: ${{ github.sha }}
       aws_account_id:
         description: AWS Account ID
+        default: "210287912431"
         type: string
       ecr_repo_name:
         description: ECR repository name (default = lowercase of the GitHub repository name with / replaced by _ )

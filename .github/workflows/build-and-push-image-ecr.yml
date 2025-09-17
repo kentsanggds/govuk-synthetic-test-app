@@ -1,4 +1,4 @@
-name: Docker image build and publish 2 - private ECR repo
+name: Docker image build and publish 3 - public ECR repo
 on:
 #   workflow_dispatch:
   workflow_call:
@@ -28,7 +28,7 @@ concurrency: ci-${{ github.repository }}-docker-pipeline
 jobs:
   docker:
     runs-on:
-      - codebuild-KenFirebreakCodeBuild2-${{ github.run_id }}-${{ github.run_attempt }}
+      - codebuild-KenFirebreakCodebuild3-${{ github.run_id }}-${{ github.run_attempt }}
         image:arm-3.0
 
     permissions:

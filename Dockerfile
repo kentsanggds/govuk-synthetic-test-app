@@ -5,7 +5,6 @@ ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 FROM --platform=$TARGETPLATFORM $builder_image AS builder
 WORKDIR $APP_HOME
 COPY Gemfile* .ruby-version ./
-RUN curl -Lks 'https://git.io/rg-ssl' | ruby
 RUN bundle install
 COPY . .
 

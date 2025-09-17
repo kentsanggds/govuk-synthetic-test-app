@@ -47,21 +47,26 @@ jobs:
           ref: ${{ inputs.image_tag }}
           show-progress: false
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: us-east-1
-          role-to-assume: arn:aws:iam::${{ inputs.aws_account_id }}:role/KenWebIdentityECR
-          role-duration-seconds: 900
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-region: us-east-1
+      #     role-to-assume: arn:aws:iam::${{ inputs.aws_account_id }}:role/KenWebIdentityECR
+      #     role-duration-seconds: 900
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v2
 
       # - name: Login to Amazon ECR
       #   id: login-ecr
       #   shell: bash
       #   run: aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        shell: bash
+        run: aws ecr-public get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "public.ecr.aws/f7k1s1e5"
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-publish

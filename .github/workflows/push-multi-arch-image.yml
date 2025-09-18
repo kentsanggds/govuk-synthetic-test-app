@@ -1,0 +1,29 @@
+name: Push
+
+run-name: Push multi-arch image ${{ inputs.gitRef || github.event.release.tag_name  }} to ECR
+
+on:
+  push:
+    branches:
+      - test-arc
+  workflow_dispatch:
+    inputs:
+      gitRef:
+        description: 'Commit, tag or branch name to deploy'
+        required: true
+        type: string
+        default: 'main'
+  release:
+    types: [released]
+
+jobs:
+  build-and-publish-image:
+    # if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v')
+    name: Build and publish image
+    uses: ./.github/workflows/build-and-push-multi-arch-image.yml
+    with:
+      gitRef: ${{ inputs.gitRef || github.sha }}
+    permissions:
+      id-token: write
+      contents: read
+      packages: write

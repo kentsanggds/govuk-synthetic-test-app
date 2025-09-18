@@ -40,7 +40,7 @@ on:
         type: string
       ecr_repo_base:
         type: string
-        default: ".dkr.ecr.eu-west-1.amazonaws.com"
+        default: ".dkr.ecr.eu-west-1.amazonaws.com/ken"
       ecr_repo_name:
         description: ECR repository name (default = lowercase of the GitHub repository name with / replaced by _ )
         required: false

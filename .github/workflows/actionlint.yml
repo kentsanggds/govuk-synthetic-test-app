@@ -6,6 +6,15 @@ jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
+      - name: build actionlint config for runner labels
+        shell: bash
+        run: |
+          cat > .github/workflows/actionlint.yml<< EOF
+          self-hosted-runner:
+            # Labels of self-hosted runner in array of string
+            labels:
+              - arc-runner-set
+          EOF
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           show-progress: false

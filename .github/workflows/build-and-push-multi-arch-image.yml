@@ -144,6 +144,7 @@ jobs:
         name: Build and push to ECR
         uses: docker/build-push-action@v6
         with:
+          allow: network.host
           push: true
           tags: ${{ inputs.aws_account_id }}${{ inputs.ecr_repo_base }}/${{ inputs.imageName }}:${{ inputs.gitRef }}
           cache-from: type=registry,ref=${{ inputs.aws_account_id }}${{ inputs.ecr_repo_base }}/${{ inputs.imageName }}:buildcache

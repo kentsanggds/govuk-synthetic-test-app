@@ -41,7 +41,7 @@ jobs:
         id: build-publish
         shell: bash
         env:
-          ECR_REPOSITORY: "ken/${{ github.repository }}"
+          ECR_REPOSITORY: "ken/govuk-synthetic-test-app"
           IMAGE_TAG: "codebuild-${{ github.sha }}"
           IMAGE_REPO_NAME_BASE: "${{ steps.setupEnv.outputs.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-1.amazonaws.com"
         run: |

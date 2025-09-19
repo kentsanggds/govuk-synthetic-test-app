@@ -9,4 +9,13 @@ jobs:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           show-progress: false
+      - name: build actionlint config for runner labels
+        shell: bash
+        run: |
+          cat > .github/actionlint.yaml<< EOF
+          self-hosted-runner:
+            # Labels of self-hosted runner in array of string
+            labels:
+              - arc-runner-set
+          EOF
       - uses: alphagov/govuk-infrastructure/.github/actions/actionlint@main

@@ -47,7 +47,7 @@ jobs:
           docker push "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:start-$IMAGE_TAG"
           echo "start-$IMAGE_TAG is pushed to $IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY"
           echo "starting large build at $(date +'%Y-%m-%dT%H:%M:%S')"
-          docker build --network=host -t misterbisson/simple-container-benchmarks .
+          docker build --network=host -t misterbisson/simple-container-benchmarks . --no-cache
           echo "finished large build at $(date +'%Y-%m-%dT%H:%M:%S')"
           docker build --network=host . -f Dockerfile -t "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:end-$IMAGE_TAG" --no-cache
           docker push "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:end-$IMAGE_TAG"

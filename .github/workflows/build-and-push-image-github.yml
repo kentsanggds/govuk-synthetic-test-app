@@ -1,0 +1,51 @@
+name: Github image build and publish - private ECR repo
+on:
+  push:
+    branches:
+      - compare-runners
+
+concurrency: github-ci-${{ github.repository }}-docker-pipeline
+        
+jobs:
+  build-and-push:
+    runs-on: ubuntu-24.04-arm
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          ref: ${{ github.sha }}
+          show-progress: false
+
+      - id: setupEnv
+        run: |
+          echo "AWS_ACCOUNT_ID=210287912431" >> $GITHUB_OUTPUT
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::${{ steps.setupEnv.outputs.AWS_ACCOUNT_ID }}:role/KenWebIdentityECR
+          role-duration-seconds: 900
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-publish
+        shell: bash
+        env:
+          ECR_REPOSITORY: "ken/${{ github.repository }}"
+          IMAGE_TAG: "github-${{ github.sha }}"
+          IMAGE_REPO_NAME_BASE: "${{ steps.setupEnv.outputs.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-1.amazonaws.com"
+        run: |
+          docker build --network=host . -f Dockerfile -t "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:start-$IMAGE_TAG" --no-cache
+          docker push "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:start-$IMAGE_TAG"
+          echo "start-$IMAGE_TAG is pushed to $IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY"
+          docker build --network=host . -f Dockerfile -t "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:end-$IMAGE_TAG" --no-cache
+          docker push "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:end-$IMAGE_TAG"
+          echo "end-$IMAGE_TAG is pushed to $IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY"

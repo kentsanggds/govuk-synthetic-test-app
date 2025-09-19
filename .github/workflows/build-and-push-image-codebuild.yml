@@ -8,9 +8,7 @@ concurrency: codebuild-ci-${{ github.repository }}-docker-pipeline
         
 jobs:
   build-and-push:
-    runs-on: |
-      - codebuild-KenFirebreakCodeBuild2-${{ github.run_id }}-${{ github.run_attempt }}
-        image: arm-3.0
+    runs-on: codebuild-KenFirebreakCodeBuild2-${{ github.run_id }}-${{ github.run_attempt }}
 
     permissions:
       id-token: write

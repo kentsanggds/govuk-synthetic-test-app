@@ -69,7 +69,7 @@ jobs:
         shell: bash
         env:
           ECR_REPOSITORY: "${{ inputs.ecr_repo_name || github.event.repository.name }}"
-          IMAGE_TAG: ${{ inputs.image_tag }}
+          IMAGE_TAG: "arc-${{ inputs.image_tag }}"
           IMAGE_REPO_NAME_BASE: "${{ inputs.aws_account_id }}.dkr.ecr.eu-west-1.amazonaws.com/ken"
         run: |
           docker build --network=host "${{ inputs.docker_build_dir }}" -f "${{ inputs.path_to_dockerfile }}" -t "$IMAGE_REPO_NAME_BASE/$ECR_REPOSITORY:$IMAGE_TAG"

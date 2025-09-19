@@ -1,4 +1,4 @@
-name: Docker image build and publish - private ECR repo
+name: ARC image build and publish - private ECR repo
 on:
   push:
     branches:
